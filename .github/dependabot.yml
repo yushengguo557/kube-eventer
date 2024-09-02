@@ -1,0 +1,14 @@
+# Specify a non-default branch for pull requests for pip
+
+version: 2
+updates:
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Raise pull requests for version updates
+    # to gomod against the `develop` branch
+    target-branch: "features/cve-fix-20240829"
+    # Labels on pull requests for version updates only
+    labels:
+      - "go dependencies"
