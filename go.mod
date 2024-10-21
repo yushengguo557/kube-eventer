@@ -18,7 +18,7 @@ require (
 	github.com/influxdata/influxdb v1.11.6
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/pborman/uuid v1.2.1
-	github.com/prometheus/client_golang v1.20.2
+	github.com/prometheus/client_golang v1.20.5
 	github.com/riemann/riemann-go-client v0.5.0
 	github.com/smartystreets/go-aws-auth v0.0.0-20180515143844-0c1422d1fdb9
 	github.com/stretchr/testify v1.9.0
