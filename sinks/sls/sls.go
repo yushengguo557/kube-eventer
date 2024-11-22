@@ -278,6 +278,7 @@ func parseLabels(labelsStrs []string) map[string]string {
 
 // newProducer create producer with config and new akInfo.
 func newProducer(c *Config) (*sls_producer.Producer, *utils.AKInfo, error) {
+	klog.Infoln("new producer")
 	// get region from env
 	region, parseEnvErr := utils.GetRegionFromEnv()
 	if parseEnvErr != nil {
@@ -294,6 +295,8 @@ func newProducer(c *Config) (*sls_producer.Producer, *utils.AKInfo, error) {
 			region = regionInMeta
 		}
 	}
+
+	klog.Infof("region: %s\n", region)
 
 	// get ak info
 	akInfo, err := utils.ParseAKInfoFromConfigPath()
@@ -316,6 +319,8 @@ func newProducer(c *Config) (*sls_producer.Producer, *utils.AKInfo, error) {
 
 	// construct sls producer config
 	cfg := sls_producer.GetDefaultProducerConfig()
+
+	klog.Infoln("get sls endpoint")
 	cfg.Endpoint = getSLSEndpoint(region, c.internal)
 	cfg.Region = region
 	cfg.UserAgent = SLSUserAgent
@@ -329,6 +334,7 @@ func newProducer(c *Config) (*sls_producer.Producer, *utils.AKInfo, error) {
 func getSLSEndpoint(region string, internal bool) string {
 	finalEndpoint := SLSDefaultEndpoint
 	endpointFromEnv := os.Getenv("SLS_ENDPOINT")
+	klog.Infoln("endpoint from env: ", endpointFromEnv)
 	if endpointFromEnv != "" {
 		finalEndpoint = endpointFromEnv
 	}
@@ -337,9 +343,11 @@ func getSLSEndpoint(region string, internal bool) string {
 		// vpc network
 		region = fmt.Sprintf("%s-intranet", region)
 		finalEndpoint = fmt.Sprintf("%s.%s", region, SLSDefaultEndpoint)
+		klog.Infoln("internal final endpoint: ", finalEndpoint)
 	} else {
 		// public network
 		finalEndpoint = fmt.Sprintf("%s.%s", region, finalEndpoint)
+		klog.Infoln("external final endpoint: ", finalEndpoint)
 	}
 	klog.Infof("sls endpoint, %v", finalEndpoint)
 	return finalEndpoint
