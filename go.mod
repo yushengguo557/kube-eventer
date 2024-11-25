@@ -27,7 +27,7 @@ require (
 	gopkg.in/olivere/elastic.v5 v5.0.86
 	gopkg.in/olivere/elastic.v6 v6.2.37
 	k8s.io/api v0.31.0
-	k8s.io/apimachinery v0.31.0
+	k8s.io/apimachinery v0.31.3
 	k8s.io/client-go v0.31.0
 	k8s.io/klog v1.0.0
 )
